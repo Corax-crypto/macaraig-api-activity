@@ -1,38 +1,33 @@
-# RESTful API Activity - [Your Name]
+# RESTful API Activity - [Marc Reiven Macaraig]
 
 ## ✅ Best Practices Implementation
 
 ### 1. Environment Variables
-- **Q:** Why did we put `BASE_URI` in `.env` instead of hardcoding it?
-- **Answer:** Putting `BASE_URI` in `.env` makes the app configurable across environments (development, staging, production) without changing source code. It enables quick reconfiguration for testing, CI, or reverse-proxy setups and keeps environment-specific values centralized.
+**Q:** Why put `BASE_URI` in `.env` instead of hardcoding it?  
+**Answer:** It lets us change settings for different environments (dev, test, prod) without changing the code. This makes the app easier to manage and deploy.
 
 ---
 
 ### 2. Resource Modeling
-- **Q:** Why did we use plural nouns (e.g., `/dishes`) for our routes?
-- **Answer:** REST conventions treat endpoints as collections of resources. Using plural nouns (like `/dishes`) makes it clear the route represents a collection and supports predictable CRUD patterns (GET a list, POST to create, GET/PUT/DELETE by `/dishes/:id` for single items).
+**Q:** Why use plural names like `/dishes`?  
+**Answer:** Plural names follow REST standards and clearly represent a collection of items. This makes the API easier to understand and use.
 
 ---
 
 ### 3. Status Codes
-- **Q:** When do we use `201 Created` vs `200 OK`?
-- **Answer:** Use **`201 Created`** when a request results in creating a new resource (commonly after a successful `POST`). Use **`200 OK`** for successful read operations and for updates where the operation succeeds and returns content.
+**Q:** When should we use `201 Created` vs `200 OK`?  
+**Answer:**  
+- Use **`201 Created`** when a new resource is successfully created.  
+- Use **`200 OK`** when a request succeeds, such as fetching or updating data.
 
-- **Q:** Why is it important to return `404` instead of just an empty array or a generic error?
-- **Answer:** Specific status codes communicate intent to clients:
-  - **`404 Not Found`** indicates the requested resource or endpoint does not exist (useful for missing single resources like `/dishes/999`).
-  - **Empty array + `200 OK`** is appropriate when a collection endpoint is valid but has no matching items (e.g., query filters that return no results).
-  - Returning accurate status codes helps clients handle responses programmatically and avoids ambiguous behavior caused by generic errors.
-
-> 💡 Note: Choose the code that best matches the semantics of the request: a missing resource → `404`, an empty but valid collection → `200` with `[]`.
+**Q:** Why return `404 Not Found` instead of an empty result?  
+**Answer:**  
+- **`404 Not Found`** means the requested item does not exist.  
+- **`200 OK` with an empty array** means the request was valid, but there is no data to return.  
+Using the correct status code helps clients understand what really happened.
 
 ---
 
 ### 4. Testing
 
 ![Get Screenshot](image.png)
-# macaraig-api-activity
-# macaraig-api-activity
-
-git add -A
-git commit -m "Initial commit: add README and project files"
