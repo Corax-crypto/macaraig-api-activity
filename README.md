@@ -1,4 +1,4 @@
-# RESTful API Activity - [Marc Reiven Macaraig]
+# RESTful API Activity - Marc Reiven Macaraig
 
 ## ✅ Best Practices Implementation
 
@@ -29,5 +29,23 @@ Using the correct status code helps clients understand what really happened.
 ---
 
 ### 4. Testing
-
 ![Get Screenshot](image.png)
+
+---
+
+### 5. Design Decisions
+
+**Q:** Why did I choose to **Embed the Reviews**?  
+**Answer:**  
+- Reviews are tightly coupled with a dish.  
+- They are usually fetched together with the dish.  
+- Embedding improves performance by avoiding extra queries.  
+- Reviews don’t need to exist independently outside of a dish.
+
+**Q:** Why did I choose to **Reference the Chef**?  
+**Answer:**  
+- A chef can create multiple dishes.  
+- Chef data should not be duplicated in every dish.  
+- Updating chef info in one place keeps data consistent.  
+- Using references with `.populate()` allows fetching chef details when needed.
+# reiven-api-activity
