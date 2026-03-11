@@ -48,4 +48,15 @@ Using the correct status code helps clients understand what really happened.
 - Chef data should not be duplicated in every dish.  
 - Updating chef info in one place keeps data consistent.  
 - Using references with `.populate()` allows fetching chef details when needed.
-# reiven-api-activity
+
+## Authentication & Authorization
+
+In our code, authentication is the process of verifying a user’s identity. When a user logs in with their email and password, the system checks the credentials against the database to confirm they are valid. Once a user is authenticated, authorization determines what actions they are allowed to perform. For example, the protect middleware ensures that only authenticated users can access certain routes, while the authorize middleware checks the user’s role (such as admin or manager) to allow or block actions like creating or deleting dishes. This separation ensures security by letting only the right users perform sensitive operations while still allowing general access to public data.
+
+## Security (bcrypt)
+
+We use bcryptjs to hash passwords instead of saving them as plain text in MongoDB for security reasons. Storing plain text passwords is extremely risky because anyone who gains access to the database could see all user passwords. By hashing passwords with bcrypt, the original password is converted into a secure, irreversible string. During login, bcrypt.compare() is used to check if the entered password matches the hashed version in the database. This approach keeps user credentials safe even if the database is compromised.
+
+## JWT Structure
+
+The protect middleware handles JSON Web Tokens (JWTs) to secure our routes. When it receives a JWT from the client, it first verifies that the token exists in the Authorization header and then checks its validity using the secret key. If the token is valid, the middleware decodes the user information (such as _id and role) and attaches it to req.user, allowing subsequent middleware or route handlers to know which user is making the request. If the token is missing or invalid, the middleware blocks access and returns a 401 Unauthorized error, preventing unauthorized users from accessing protected routes.

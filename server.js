@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./src/config/db');
+
 const chefRoutes = require('./src/routes/chefRoutes');
 const apiRoutes = require('./src/routes/apiRoutes');
+const authRoutes = require('./src/routes/authRoutes');
 
 const app = express();
 
@@ -20,6 +22,7 @@ const BASE_URI = process.env.BASE_URI || '/api/v1';
 // Routes
 app.use('/api/chefs', chefRoutes);
 app.use(BASE_URI, apiRoutes);
+app.use(`${BASE_URI}/auth`, authRoutes);
 
 // Root route
 app.get('/', (req, res) => {

@@ -10,6 +10,8 @@ const {
     deleteDish,
 } = require('../controllers/dishController');
 
+// Import controllers here...
+const { protect, authorize } = require('../middleware/authMiddleware');
 
 // 1. If user goes to GET / (Show menu) Ask Chef to getAllDishes
 router.get('/dishes', getAllDishes);
@@ -25,5 +27,11 @@ router.put('/dishes/:id', updateDish);
 
 // 5. IF user sends DELETE /:id (Cancel meat) + Ask Chef to deleteDish
 router.delete('/dishes/:id', deleteDish);
+
+// ANYONE can get dishes
+router.get('/', getAllDishes);
+
+// ONLY Admins and Managers can create dishes
+router.post('/', protect, authorize('admin', 'manager'), createDish);
 
 module.exports = router;
